@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="DatabaseForDictionaryModelStoreContainer" CdmEntityContainer="Database">
+    <EntitySetMapping Name="EnglishVietnamese">
+      <EntityTypeMapping TypeName="DatabaseForDictionaryModel.EnglishVietnamese">
+        <MappingFragment StoreEntitySet="EnglishVietnamese">
+          <ScalarProperty Name="PoF" ColumnName="PoF" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="Eng" ColumnName="Eng" />
+          <ScalarProperty Name="Viet" ColumnName="Viet" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>
