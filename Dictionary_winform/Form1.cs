@@ -15,10 +15,37 @@ namespace Dictionary_winform
         private List<string> eng;
         private List<string> wordType;
         private List<string> viet;
+        WebBrowser wbEng,wbVie;
+        SpeakText En,Vie;
         //======================
         public Dictionary_form()
         {
             InitializeComponent();
+
+            //Load English speaker browser
+            wbEng = new WebBrowser();
+            wbEng.Width = 0;
+            wbEng.Height = 0;
+            wbEng.Visible = false;
+            wbEng.ScriptErrorsSuppressed = true;
+            wbEng.Navigate(Constant.EnglishLink);
+
+            this.Controls.Add(wbEng);
+
+            En = new SpeakText(wbEng);
+            //=============================
+            //Load Vietnamese speaker browser
+            wbVie = new WebBrowser();
+            wbVie.Width = 0;
+            wbVie.Height = 0;
+            wbVie.Visible = false;
+            wbVie.ScriptErrorsSuppressed = true;
+            wbVie.Navigate(Constant.VietNamLink);
+            this.Controls.Add(wbVie);
+
+            Vie = new SpeakText(wbVie);
+            //===============================
+
         }
 
         private void addWord_Click(object sender, EventArgs e)
@@ -89,6 +116,13 @@ namespace Dictionary_winform
         {
             if (ListVIEnWord.SelectedIndex != -1)
                 txtMeaning.Text = ListEnViWord.Items[ListVIEnWord.SelectedIndex].ToString();
+        }
+
+        private void ReadWord_Click(object sender, EventArgs e)
+        {
+            int mode = SearchBox.SelectedIndex; //Eng = 1,  Viet = 0
+            if (mode == 1) En.Speak(txtMeaning.Text);
+            else Vie.Speak(txtMeaning.Text);
         }
     }
 }
