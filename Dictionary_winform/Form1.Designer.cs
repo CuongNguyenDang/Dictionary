@@ -125,6 +125,7 @@
             this.ListEnViWord.Name = "ListEnViWord";
             this.ListEnViWord.Size = new System.Drawing.Size(181, 308);
             this.ListEnViWord.TabIndex = 0;
+            this.ListEnViWord.SelectedIndexChanged += new System.EventHandler(this.ListEnViWord_SelectedIndexChanged);
             // 
             // VI_EN
             // 
@@ -145,6 +146,7 @@
             this.ListVIEnWord.Name = "ListVIEnWord";
             this.ListVIEnWord.Size = new System.Drawing.Size(181, 292);
             this.ListVIEnWord.TabIndex = 0;
+            this.ListVIEnWord.SelectedIndexChanged += new System.EventHandler(this.ListVIEnWord_SelectedIndexChanged);
             // 
             // HistoryWordList
             // 

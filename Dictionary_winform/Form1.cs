@@ -12,9 +12,9 @@ namespace Dictionary_winform
 {
     public partial class Dictionary_form : Form
     {   //Database
-        public List<string> eng;
-        public List<string> wordType;
-        public List<string> viet;
+        private List<string> eng;
+        private List<string> wordType;
+        private List<string> viet;
         //======================
         public Dictionary_form()
         {
@@ -49,9 +49,9 @@ namespace Dictionary_winform
        public void addNewWord(string word, string pof, string meaning)
         {
             //Add new item
-            eng.Add(word);
-            wordType.Add(pof);
-            viet.Add(meaning);
+            //eng.Add(word);
+            //wordType.Add(pof);
+            //viet.Add(meaning);
 
             ListEnViWord.Items.Add(word);
             ListVIEnWord.Items.Add(meaning);
@@ -64,13 +64,31 @@ namespace Dictionary_winform
         {
             if (ListEnViWord.SelectedIndex != -1)
             {
-                ListEnViWord.Items.RemoveAt(ListEnViWord.SelectedIndex);
+                int pos = ListEnViWord.SelectedIndex;
+                ListEnViWord.Items.RemoveAt(pos);
+                ListVIEnWord.Items.RemoveAt(pos);
+                txtMeaning.Text = "";
             }
 
             if (ListVIEnWord.SelectedIndex != -1)
             {
-                ListVIEnWord.Items.RemoveAt(ListVIEnWord.SelectedIndex);
+                int pos = ListVIEnWord.SelectedIndex;
+                ListVIEnWord.Items.RemoveAt(pos);
+                ListEnViWord.Items.RemoveAt(pos);
+                txtMeaning.Text = "";
             }
+        }
+
+        private void ListEnViWord_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (ListEnViWord.SelectedIndex!=-1)
+                txtMeaning.Text = ListVIEnWord.Items[ListEnViWord.SelectedIndex].ToString();
+        }
+
+        private void ListVIEnWord_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (ListVIEnWord.SelectedIndex != -1)
+                txtMeaning.Text = ListEnViWord.Items[ListVIEnWord.SelectedIndex].ToString();
         }
     }
 }
