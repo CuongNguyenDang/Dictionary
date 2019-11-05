@@ -256,7 +256,6 @@
             this.txtMeaning.Name = "txtMeaning";
             this.txtMeaning.Size = new System.Drawing.Size(462, 316);
             this.txtMeaning.TabIndex = 1;
-            this.txtMeaning.TextChanged += new System.EventHandler(this.txtMeaning_TextChanged);
             // 
             // menuToolStripMenuItem
             // 
