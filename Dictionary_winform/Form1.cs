@@ -11,12 +11,12 @@ using System.Windows.Forms;
 namespace Dictionary_winform
 {
     public partial class Dictionary_form : Form
-    {   //Database
-        private List<string> eng;
-        private List<string> wordType;
-        private List<string> viet;
-        WebBrowser wbEng,wbVie;
-        SpeakText En,Vie;
+    {
+        WebBrowser wbEng, wbVie;
+        SpeakText En, Vie;
+        Queue<string> log = new Queue<string>();
+
+        #region Cuong
         //======================
         public Dictionary_form()
         {
@@ -61,30 +61,27 @@ namespace Dictionary_winform
             var listViet = from d in db.EnglishVietnamese select d.Viet;
             var listWordType = from b in db.EnglishVietnamese select b.PoF;
 
-            eng = listEng.ToList();
-            wordType = listWordType.ToList();
-            viet = listViet.ToList();
+            List<string> eng = listEng.ToList();
+            List<string> wordType = listWordType.ToList();
+            List<string> viet = listViet.ToList();
 
             for (int i = 0; i < eng.Count; i++)
             {
                 ListEnViWord.Items.Add(eng[i]);
                 ListVIEnWord.Items.Add(viet[i]);
             }
-           
+
         }
 
-       public void addNewWord(string word, string pof, string meaning)
+        public void addNewWord(string word, string pof, string meaning)
         {
             //Add new item
-            //eng.Add(word);
-            //wordType.Add(pof);
-            //viet.Add(meaning);
 
             ListEnViWord.Items.Add(word);
             ListVIEnWord.Items.Add(meaning);
 
-            this.Refresh();        
-           
+            this.Refresh();
+
         }
 
         private void delWord_Click(object sender, EventArgs e)
@@ -108,7 +105,7 @@ namespace Dictionary_winform
 
         private void ListEnViWord_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (ListEnViWord.SelectedIndex!=-1)
+            if (ListEnViWord.SelectedIndex != -1)
                 txtMeaning.Text = ListVIEnWord.Items[ListEnViWord.SelectedIndex].ToString();
         }
 
@@ -124,5 +121,36 @@ namespace Dictionary_winform
             if (mode == 1) En.Speak(txtMeaning.Text);
             else Vie.Speak(txtMeaning.Text);
         }
+        #endregion
+        #region Phuc
+        private void txtKey_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter) FindWord();
+        }
+
+        private void SearchWord_Click(object sender, EventArgs e)
+        {
+            FindWord();
+        }
+
+        private void randomWord_Click(object sender, EventArgs e)
+        {
+            int size = ListEnViWord.Items.Count;
+            Random rand = new Random();
+            int index = rand.Next(size - 1);
+            bool temp = true;
+            if (SearchBox.SelectedIndex == 0) ListEnViWord.SetSelected(index, temp);
+            else ListVIEnWord.SetSelected(index, temp);
+        }
+
+        private void FindWord()
+        {
+            string key = txtKey.Text;
+            int pos = ListEnViWord.FindString(key);
+            if (pos != -1) txtMeaning.Text = ListVIEnWord.Items[pos].ToString();
+            else txtMeaning.Text = "";
+        }
+
+        #endregion
     }
 }

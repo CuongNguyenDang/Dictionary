@@ -39,7 +39,7 @@
             this.HistoryWordList = new System.Windows.Forms.Button();
             this.SearchWord = new System.Windows.Forms.Button();
             this.BackInHistoryList = new System.Windows.Forms.Button();
-            this.textBox3 = new System.Windows.Forms.TextBox();
+            this.txtKey = new System.Windows.Forms.TextBox();
             this.randomWord = new System.Windows.Forms.Button();
             this.delWord = new System.Windows.Forms.Button();
             this.addWord = new System.Windows.Forms.Button();
@@ -72,7 +72,7 @@
             this.panel1.Controls.Add(this.HistoryWordList);
             this.panel1.Controls.Add(this.SearchWord);
             this.panel1.Controls.Add(this.BackInHistoryList);
-            this.panel1.Controls.Add(this.textBox3);
+            this.panel1.Controls.Add(this.txtKey);
             this.panel1.Controls.Add(this.randomWord);
             this.panel1.Controls.Add(this.delWord);
             this.panel1.Controls.Add(this.addWord);
@@ -165,6 +165,7 @@
             this.SearchWord.Size = new System.Drawing.Size(52, 51);
             this.SearchWord.TabIndex = 6;
             this.SearchWord.UseVisualStyleBackColor = true;
+            this.SearchWord.Click += new System.EventHandler(this.SearchWord_Click);
             // 
             // BackInHistoryList
             // 
@@ -175,13 +176,14 @@
             this.BackInHistoryList.Text = "<<";
             this.BackInHistoryList.UseVisualStyleBackColor = true;
             // 
-            // textBox3
+            // txtKey
             // 
-            this.textBox3.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox3.Location = new System.Drawing.Point(1, 25);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(183, 27);
-            this.textBox3.TabIndex = 4;
+            this.txtKey.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtKey.Location = new System.Drawing.Point(1, 25);
+            this.txtKey.Name = "txtKey";
+            this.txtKey.Size = new System.Drawing.Size(183, 27);
+            this.txtKey.TabIndex = 4;
+            this.txtKey.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtKey_KeyDown);
             // 
             // randomWord
             // 
@@ -191,6 +193,7 @@
             this.randomWord.TabIndex = 3;
             this.randomWord.Text = "Random";
             this.randomWord.UseVisualStyleBackColor = true;
+            this.randomWord.Click += new System.EventHandler(this.randomWord_Click);
             // 
             // delWord
             // 
@@ -253,6 +256,7 @@
             this.txtMeaning.Name = "txtMeaning";
             this.txtMeaning.Size = new System.Drawing.Size(462, 316);
             this.txtMeaning.TabIndex = 1;
+            this.txtMeaning.TextChanged += new System.EventHandler(this.txtMeaning_TextChanged);
             // 
             // menuToolStripMenuItem
             // 
@@ -335,7 +339,7 @@
         private System.Windows.Forms.Button HistoryWordList;
         private System.Windows.Forms.Button BackInHistoryList;
         private System.Windows.Forms.Button SearchWord;
-        private System.Windows.Forms.TextBox textBox3;
+        private System.Windows.Forms.TextBox txtKey;
         private System.Windows.Forms.Button randomWord;
         private System.Windows.Forms.Button delWord;
         private System.Windows.Forms.Button addWord;
