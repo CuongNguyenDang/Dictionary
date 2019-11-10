@@ -36,8 +36,8 @@ namespace Dictionary_winform
 
         public void Speak(string data)
         {
-            //SetText("");
-            SetText(data);
+            if (data == "") SetText(" ");
+            else SetText(data);
             Speak();
         }
     }

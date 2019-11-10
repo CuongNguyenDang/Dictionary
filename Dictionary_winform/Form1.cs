@@ -12,16 +12,47 @@ namespace Dictionary_winform
 {
     public partial class Dictionary_form : Form
     {
-        WebBrowser wbEng, wbVie;
-        SpeakText En, Vie;
-        Queue<string> log = new Queue<string>();
-
-        #region Cuong
+        private WebBrowser wbEng, wbVie;
+        private bool isLoading1 = true;
+        private bool isLoading2 = true;
+        private SpeakText En, Vie;
+        private Stack<string> log = new Stack<string>();
+        //private List<string> log = new List<string>();
+        
         //======================
         public Dictionary_form()
         {
             InitializeComponent();
 
+ 
+        }
+
+        private void wbVie_DocumentCompleted(object sender, WebBrowserDocumentCompletedEventArgs e)
+        {
+            isLoading2 = false;
+            ChangeLoading();
+        }
+
+        private void wbEng_DocumentCompleted(object sender, WebBrowserDocumentCompletedEventArgs e)
+        {
+            isLoading1 = false;
+            ChangeLoading();
+        }
+
+        private void ChangeLoading()
+        {
+            this.Enabled = !(isLoading1 && isLoading2);
+            if (this.Enabled) En.Speak("Hello");
+        }
+
+        private void addWord_Click(object sender, EventArgs e)
+        {
+            AddWordForm f = new AddWordForm(this);
+            f.Show();
+        }
+
+        private void Dictionary_form_Load(object sender, EventArgs e)
+        {
             //Load English speaker browser
             wbEng = new WebBrowser();
             wbEng.Width = 0;
@@ -29,6 +60,7 @@ namespace Dictionary_winform
             wbEng.Visible = false;
             wbEng.ScriptErrorsSuppressed = true;
             wbEng.Navigate(Constant.EnglishLink);
+            wbEng.DocumentCompleted += wbEng_DocumentCompleted;
 
             this.Controls.Add(wbEng);
 
@@ -41,21 +73,12 @@ namespace Dictionary_winform
             wbVie.Visible = false;
             wbVie.ScriptErrorsSuppressed = true;
             wbVie.Navigate(Constant.VietNamLink);
+            wbVie.DocumentCompleted += wbVie_DocumentCompleted;
             this.Controls.Add(wbVie);
 
             Vie = new SpeakText(wbVie);
             //===============================
 
-        }
-
-        private void addWord_Click(object sender, EventArgs e)
-        {
-            AddWordForm f = new AddWordForm(this);
-            f.Show();
-        }
-
-        private void Dictionary_form_Load(object sender, EventArgs e)
-        {
             Database db = new Database();
             var listEng = from c in db.EnglishVietnamese select c.Eng;
             var listViet = from d in db.EnglishVietnamese select d.Viet;
@@ -70,7 +93,6 @@ namespace Dictionary_winform
                 ListEnViWord.Items.Add(eng[i]);
                 ListVIEnWord.Items.Add(viet[i]);
             }
-
         }
 
         public void addNewWord(string word, string pof, string meaning)
@@ -106,13 +128,21 @@ namespace Dictionary_winform
         private void ListEnViWord_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (ListEnViWord.SelectedIndex != -1)
+            {
                 txtMeaning.Text = ListVIEnWord.Items[ListEnViWord.SelectedIndex].ToString();
+                log.Push(ListEnViWord.Items[ListEnViWord.SelectedIndex].ToString());
+                //log.Add(ListEnViWord.Items[ListEnViWord.SelectedIndex].ToString());
+            }
         }
 
         private void ListVIEnWord_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (ListVIEnWord.SelectedIndex != -1)
+            {
                 txtMeaning.Text = ListEnViWord.Items[ListVIEnWord.SelectedIndex].ToString();
+                log.Push(ListVIEnWord.Items[ListVIEnWord.SelectedIndex].ToString());
+                //log.Add(ListVIEnWord.Items[ListVIEnWord.SelectedIndex].ToString());
+            }
         }
 
         private void ReadWord_Click(object sender, EventArgs e)
@@ -121,8 +151,7 @@ namespace Dictionary_winform
             if (mode == 1) En.Speak(txtMeaning.Text);
             else Vie.Speak(txtMeaning.Text);
         }
-        #endregion
-        #region Phuc
+
         private void txtKey_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter) FindWord();
@@ -133,24 +162,73 @@ namespace Dictionary_winform
             FindWord();
         }
 
+        private void HistoryWordList_Click(object sender, EventArgs e)
+        {
+            Form history = new History(log.ToList());
+            history.ShowDialog();
+        }
+
+        private void BackInHistoryList_Click(object sender, EventArgs e)
+        {
+            if (log.Count != 0)
+            {
+                log.Pop();
+                string key = log.First();
+                int pos = ListEnViWord.FindString(key);
+                if (pos != -1)
+                {
+                    SearchBox.SelectedIndex = 0;
+                    txtMeaning.Text = ListVIEnWord.Items[pos].ToString();
+                    ListEnViWord.SetSelected(pos, true);
+                }
+                else
+                {
+                    pos = ListVIEnWord.FindString(key);
+                    if (pos != -1)
+                    {
+                        SearchBox.SelectedIndex = 1;
+                        txtMeaning.Text = ListEnViWord.Items[pos].ToString();
+                        ListVIEnWord.SetSelected(pos, true);
+                    }
+                    else txtMeaning.Text = "";
+                }
+                log.Pop();
+            }
+        }
+
         private void randomWord_Click(object sender, EventArgs e)
         {
             int size = ListEnViWord.Items.Count;
             Random rand = new Random();
             int index = rand.Next(size - 1);
-            bool temp = true;
-            if (SearchBox.SelectedIndex == 0) ListEnViWord.SetSelected(index, temp);
-            else ListVIEnWord.SetSelected(index, temp);
+            if (SearchBox.SelectedIndex == 0) ListEnViWord.SetSelected(index, true);
+            else ListVIEnWord.SetSelected(index, true);
         }
 
         private void FindWord()
         {
             string key = txtKey.Text;
             int pos = ListEnViWord.FindString(key);
-            if (pos != -1) txtMeaning.Text = ListVIEnWord.Items[pos].ToString();
-            else txtMeaning.Text = "";
+            if (pos != -1)
+            {
+                txtMeaning.Text = ListVIEnWord.Items[pos].ToString();
+                SearchBox.SelectedIndex = 0;
+                ListEnViWord.SetSelected(pos, true);
+            }
+            else
+            {
+                pos = ListVIEnWord.FindString(key);
+                if (pos != -1) {
+                    txtMeaning.Text = ListEnViWord.Items[pos].ToString();
+                    SearchBox.SelectedIndex = 1;
+                    ListVIEnWord.SetSelected(pos, true);
+                }
+                else txtMeaning.Text = "";
+            }
+
+            //log.Enqueue(key);
+            //log.Add(key);
         }
 
-        #endregion
     }
 }

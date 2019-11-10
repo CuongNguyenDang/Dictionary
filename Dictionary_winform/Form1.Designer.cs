@@ -156,6 +156,7 @@
             this.HistoryWordList.TabIndex = 8;
             this.HistoryWordList.Text = "History";
             this.HistoryWordList.UseVisualStyleBackColor = true;
+            this.HistoryWordList.Click += new System.EventHandler(this.HistoryWordList_Click);
             // 
             // SearchWord
             // 
@@ -175,6 +176,7 @@
             this.BackInHistoryList.TabIndex = 7;
             this.BackInHistoryList.Text = "<<";
             this.BackInHistoryList.UseVisualStyleBackColor = true;
+            this.BackInHistoryList.Click += new System.EventHandler(this.BackInHistoryList_Click);
             // 
             // txtKey
             // 
