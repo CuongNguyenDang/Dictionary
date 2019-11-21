@@ -52,6 +52,8 @@
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.reloadDatabaseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panel1.SuspendLayout();
             this.SearchBox.SuspendLayout();
             this.EN_VI.SuspendLayout();
@@ -154,7 +156,7 @@
             this.HistoryWordList.Name = "HistoryWordList";
             this.HistoryWordList.Size = new System.Drawing.Size(87, 24);
             this.HistoryWordList.TabIndex = 8;
-            this.HistoryWordList.Text = "History";
+            this.HistoryWordList.Text = "Lịch sử";
             this.HistoryWordList.UseVisualStyleBackColor = true;
             this.HistoryWordList.Click += new System.EventHandler(this.HistoryWordList_Click);
             // 
@@ -191,9 +193,9 @@
             // 
             this.randomWord.Location = new System.Drawing.Point(194, 233);
             this.randomWord.Name = "randomWord";
-            this.randomWord.Size = new System.Drawing.Size(75, 27);
+            this.randomWord.Size = new System.Drawing.Size(75, 53);
             this.randomWord.TabIndex = 3;
-            this.randomWord.Text = "Random";
+            this.randomWord.Text = "Ngẫu nhiên";
             this.randomWord.UseVisualStyleBackColor = true;
             this.randomWord.Click += new System.EventHandler(this.randomWord_Click);
             // 
@@ -203,7 +205,7 @@
             this.delWord.Name = "delWord";
             this.delWord.Size = new System.Drawing.Size(75, 27);
             this.delWord.TabIndex = 2;
-            this.delWord.Text = "Delete";
+            this.delWord.Text = "Xoá";
             this.delWord.UseVisualStyleBackColor = true;
             this.delWord.Click += new System.EventHandler(this.delWord_Click);
             // 
@@ -213,7 +215,7 @@
             this.addWord.Name = "addWord";
             this.addWord.Size = new System.Drawing.Size(75, 27);
             this.addWord.TabIndex = 1;
-            this.addWord.Text = "Add";
+            this.addWord.Text = "Thêm";
             this.addWord.UseVisualStyleBackColor = true;
             this.addWord.Click += new System.EventHandler(this.addWord_Click);
             // 
@@ -261,6 +263,9 @@
             // 
             // menuToolStripMenuItem
             // 
+            this.menuToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.reloadDatabaseToolStripMenuItem,
+            this.exitToolStripMenuItem});
             this.menuToolStripMenuItem.Name = "menuToolStripMenuItem";
             this.menuToolStripMenuItem.Size = new System.Drawing.Size(58, 24);
             this.menuToolStripMenuItem.Text = "Menu";
@@ -299,6 +304,18 @@
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox1.TabIndex = 3;
             this.pictureBox1.TabStop = false;
+            // 
+            // exitToolStripMenuItem
+            // 
+            this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(196, 26);
+            this.exitToolStripMenuItem.Text = "Exit";
+            // 
+            // reloadDatabaseToolStripMenuItem
+            // 
+            this.reloadDatabaseToolStripMenuItem.Name = "reloadDatabaseToolStripMenuItem";
+            this.reloadDatabaseToolStripMenuItem.Size = new System.Drawing.Size(196, 26);
+            this.reloadDatabaseToolStripMenuItem.Text = "Reload database";
             // 
             // Dictionary_form
             // 
@@ -353,6 +370,8 @@
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.TabPage EN_VI;
         private System.Windows.Forms.ListBox ListEnViWord;
+        private System.Windows.Forms.ToolStripMenuItem reloadDatabaseToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
     }
 }
 
