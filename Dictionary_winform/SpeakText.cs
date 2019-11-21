@@ -24,14 +24,18 @@ namespace Dictionary_winform
 
         private void SetText(string data)
         {
-            HtmlElement element = WbWeb.Document.GetElementById("text");
-            element.SetAttribute("value", data);
+            HtmlElement element;
+            element = WbWeb.Document.GetElementById("txtRead");
+            if (element == null) element = WbWeb.Document.GetElementById("text");
+            if (element != null) element.SetAttribute("value", data);
         }
 
         private void Speak()
         {
-            HtmlElement element = WbWeb.Document.GetElementById("playbutton");
-            element.InvokeMember("click");
+            HtmlElement element;
+            element = WbWeb.Document.GetElementById("btTTS");
+            if (element == null) element = WbWeb.Document.GetElementById("playbutton");
+            if (element != null) element.InvokeMember("click");
         }
 
         public void Speak(string data)

@@ -16,7 +16,7 @@ namespace Dictionary_winform
     {
         public int ID { get; set; }
         public string Eng { get; set; }
+        public Nullable<int> PoF { get; set; }
         public string Viet { get; set; }
-        public string PoF { get; set; }
     }
 }

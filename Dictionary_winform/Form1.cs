@@ -41,8 +41,8 @@ namespace Dictionary_winform
 
         private void ChangeLoading()
         {
-            this.Enabled = !(isLoading1 && isLoading2);
-            if (this.Enabled) En.Speak("Hello");
+            this.Enabled = !(isLoading1 || isLoading2);
+            if (this.Enabled) En.Speak("Hello");               
         }
 
         private void addWord_Click(object sender, EventArgs e)
@@ -85,7 +85,7 @@ namespace Dictionary_winform
             var listWordType = from b in db.EnglishVietnamese select b.PoF;
 
             List<string> eng = listEng.ToList();
-            List<string> wordType = listWordType.ToList();
+            //List<string> wordType = listWordType.ToList();
             List<string> viet = listViet.ToList();
 
             for (int i = 0; i < eng.Count; i++)
