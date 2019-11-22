@@ -12,7 +12,7 @@ namespace Dictionary_winform
     using System;
     using System.Collections.Generic;
     
-    public partial class EnglishVietnamese
+    public partial class EnglishVietnamese: Object
     {
         public int ID { get; set; }
         public string Eng { get; set; }
