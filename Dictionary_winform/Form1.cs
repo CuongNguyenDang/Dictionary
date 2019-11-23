@@ -80,8 +80,9 @@ namespace Dictionary_winform
             //===============================
 
             Database db = new Database();
+            
             var listEng = from c in db.EnglishVietnamese select c.Eng;
-            var listViet = from d in db.EnglishVietnamese select d.Viet;
+            var listViet = from d in db.EnglishVietnamese select d.Vie;
             var listWordType = from b in db.EnglishVietnamese select b.PoF;
 
             List<string> eng = listEng.ToList();

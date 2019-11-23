@@ -12,11 +12,11 @@ namespace Dictionary_winform
     using System;
     using System.Collections.Generic;
     
-    public partial class EnglishVietnamese: Object
+    public partial class EnglishVietnamese
     {
         public int ID { get; set; }
         public string Eng { get; set; }
         public Nullable<int> PoF { get; set; }
-        public string Viet { get; set; }
+        public string Vie { get; set; }
     }
 }
